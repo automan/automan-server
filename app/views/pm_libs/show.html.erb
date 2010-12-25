@@ -1,0 +1,63 @@
+<% html_title "对象库: #{@folder_root.pm_lib.name}(#{@folder_root.pm_lib.title})" %>
+<% content_for :topbar do %>
+	<div class="nav-toolbar">
+		<% links = [["对象库", pm_libs_path], [@folder_root.pm_lib.name, pm_lib_path(@folder_root.pm_lib)] ] %>
+		<%= breadcrumb_by_array( links, :last_no_link=>true ) %>
+		<%= link_to_popup "同步到本地", {:action => "download_help", :id=>@folder_root}, {:style=>"margin-left:20px;"} %>
+		<%= link_to "脚本编写器", {:controller => "pm_scripts",  :action => "new", :pm_lib_id=>@folder_root.pm_lib_id}, {:popup => true,  :style=>"margin-left:20px;"} %>
+	</div>
+<% end %>
+
+<%= javascript_include_tag '/livetree/live_tree' %>     
+<% content_for :sidebar do %>
+	 <%= live_tree :folder, {
+   								:initial_data_root => folder_tree(@pm_lib),   								
+                	#:initial_data_options => { :depth => nil },
+                  :initial_data_whole_tree => true,
+                  :preload_items => false,
+                  :allow_click_branch => true,
+                  :on_click_item => "onClickItem(item.id)"
+                 }
+    %>
+    
+    <script type="text/javascript" charset="utf-8">
+      function onClickItem(folderID) {
+      	jQuery.get('<%= pm_lib_pm_folders_path(@pm_lib) %>/'+folderID, function(data){
+      		jQuery("#list_view").html(data)
+					jQuery("#ajax-indicator").hide()
+      	})
+      }          
+
+
+	 jQuery(document).ready(function($) {
+		var loadId = <%= @pm_folder.id%>
+        folder.expandItem(loadId)
+        onClickItem(loadId)
+
+		$("#type-link").live("click", function(){
+			if(!confirm("确实要修改？")){
+				return
+			}
+			
+			$("#ajax-indicator").show()
+			var link = $(this)
+			var folderId = link.attr("data-id")
+			$.post('/pm_libs/'+ <%= @pm_lib.id %> +'/pm_folders/'+ folderId +'/toggle_type', {from: link.attr("class")}, function(resp){
+				onClickItem(folderId)
+				alert(resp)
+			})
+			
+		})
+	 })
+  </script>
+    
+<% end %>   
+
+<div id='list_view'>
+    <% unless request.xhr? %>
+	    <h1>正在加载，请稍等。。。</h1>
+		<%else%>
+			<center><h1>请点击左侧"对象树"</h1></center>
+    <%end%>
+</div>
+                                                                           

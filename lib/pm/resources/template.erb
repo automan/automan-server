@@ -1,0 +1,19 @@
+#
+# 编写人：<%= user %> 
+# 创建日期： <%= Date.today.to_s(:db) %> 
+#
+#
+
+require "automan/baseline"
+
+class TestTODO < Automan::DataDrivenTestcase
+  def process()
+  		
+  	##自动生成代码开始  <% model_params.each_with_index do|model,i| %>
+ 		<%= (i==0 ? 'ie = IEModel.start' : 'ie.goto')+ "('#{model.url}')" %> #<%= model.model.title %>
+    page = ie.cast(<%= model.class_name(true) %>)
+	  <%= model.step_params.map{|e|e.to_code("page")}.join("\n") %>
+		<% end %>##自动生成代码结束  	
+    ie.close_all
+  end
+end

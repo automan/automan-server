@@ -1,0 +1,54 @@
+<%
+	get_child_proc = Proc.new{|e|
+		if e.is_a?(PmFolder)
+			r = e.children
+			r.empty? ? e.pm_models.imported(true) : r
+		elsif e.is_a?(PmModel)
+			[]
+		end
+	}
+	
+	get_item_name_proc = Proc.new{|e|e.name}
+	
+	get_item_id_proc = Proc.new{|e|e.is_a?(PmModel) ? e.id : "#{e.name}_#{e.id}"}
+	
+ %>
+<%= javascript_include_tag "/livetree/live_tree", :cache => true %>
+<% form_tag do %> 
+	<%= live_tree :item_type_tree, {
+                    :css_style => "float:none;height:auto;width:auto;",
+                    #:id => "foo_tree",
+                    #:js_variable_name => "fooBar",
+              
+                    #:data_url => { :action => "baz" },
+                    #:data_controller => "bar",
+                    #:data_action => "foo",
+                    #:root_item_id => @root_area.id,
+                    #:initial_data => "{id:100,name:'foo'}",
+                    :initial_data_root => @pm_folder,
+                    :initial_data_options => { :depth => 4,
+																							 :get_item_children_proc => get_child_proc,
+																							 :get_item_name_proc => get_item_name_proc,
+																							 :get_item_id_proc => get_item_id_proc},
+                    :initial_data_whole_tree => true,
+                    :checkbox_name=>"'page_ids[]'",
+                    #:css_class => "",
+                    #:expand_root_item => false,
+                    #:hide_root_item => true,
+                    #:scroll => false,
+                    :preload_items => false,
+                  
+                    #:on_click_item => "areaTreeOnClickItem(this, item.id, item.isLeaf, item.isLeaf ? item.parent.id : item.id)",
+                    :allow_click_leaf => false,
+                    #:allow_click_branch => false,
+                    :expand_item_on_click => false,
+                    #:on_expand_item => 'alert("expanded " + item.id + " " + item.name + " leaf:" + item.isLeaf + " loaded:" + item.isLoaded);',
+                    #:on_collapse_item => 'alert("collapsed " + item.id + " " + item.name + " leaf:" + item.isLeaf + " loaded:" + item.isLoaded);',
+                    #:on_load_item => 'alert("loaded " + item.id + " " + item.name + " leaf:" + item.isLeaf + " loaded:" + item.isLoaded);'
+                    }
+    %>
+ 	<p>
+ 	导出到:	<%= select_tag 'pm_lib_id', options_for_select(User.current.fav_or_owns(PmLib).map{|e|[e.name, e.id]}) %>(这里只会显示出由您“创建”或者“收藏”的项目)
+ 	</p>
+	<%= submit_tag "确定", :disable_with => 'Saving...' %>
+<% end %>

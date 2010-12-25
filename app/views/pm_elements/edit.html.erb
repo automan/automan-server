@@ -1,0 +1,12 @@
+<h1>Editing pm_element</h1>
+
+<% form_for(@pm_element) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @pm_element %> |
+<%= link_to 'Back', pm_elements_path %>

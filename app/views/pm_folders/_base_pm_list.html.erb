@@ -1,0 +1,38 @@
+
+|<%= link_to "项目中新建的",  "#project-list", :rel=>"facebox" %>
+<% table @pm_folder.pm_models.imported(true), %w[名称 项目中 owner 说明  操作] do |row, klass|%>
+		<tr class="<%= klass %>">
+	  	<td>                       
+				<%= link_to row.name, pm_model_path(row), :class=>"winpopup", :popup=>true%>
+			</td>
+	  	<td>                       
+				<%= link_to_pm_model_link_status row%>
+			</td>
+			<td>
+		   	<%= link_to_owner(row) %>	   	
+	   	</td>
+	   	<td>                       
+		 		<%= row.title %>
+			</td>
+	   	<td>
+		   	<%= link_to_delete_base_pm_model(row)  %>
+			</td>
+	</tr>
+<% end %>
+<div id="project-list" style="display:none;">
+	<% table @pm_folder.pm_models.imported(false), %w[名称 所在项目 owner 说明 ] do |row, klass|%>
+		 <tr class="<%= klass %>">
+  	<td>                       
+			<%= link_to row.name, pm_model_path(row), :class=>"winpopup", :popup=>true%>
+		</td>
+		<td>               
+			<%= link_to  row.pm_links.first.pm_lib.name, row.pm_links.first.pm_lib, :class=>"winpopup", :popup=>true%>
+		</td>
+		<td>
+	   	<%= link_to_owner(row) %></td>
+   	<td>                       
+	 		<%= row.title %>
+		</td>
+	</tr>
+	<% end %>
+</div>

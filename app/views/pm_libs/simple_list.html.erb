@@ -1,0 +1,27 @@
+<script type="text/javascript" charset="utf-8">
+	jQuery.noConflict();
+ jQuery(document).ready(function($) {
+   $('a[rel*=facebox]').facebox() 
+   $('.pagination a').facebox() 
+ })
+</script>
+
+<h1><%= html_title '对象库列表' %></h1>
+<%= not_support_ie_message %>
+<% table @pm_libs ,["ID","owner","说明","操作"], :style=>"width:600px;" do |pm_lib, clazz|%>
+	<tr class="<%= clazz %>">  
+    <td>
+    	<%= link_to pm_lib.name_zh, pm_lib%>	    	
+  	</td>
+    <td> 
+	  	<%= link_to_owner(pm_lib) %>
+  	</td>
+    <td>    	
+    	<%= inplace_update_attr(pm_lib, :title) %>
+  	</td>
+	<td>    	
+    	<%= link_to_fav(pm_lib) %>
+  	</td>
+  </tr>
+<% end %>
+<%= will_paginate @pm_libs, :rel=>"facebox" %>

@@ -1,0 +1,9 @@
+<select onchange="if (this.value != '') {window.location = this.value; }">
+  <option value=''>转到</option>
+  <option disabled="disabled">---</option>
+  <% all_product_line.each do |line| %>
+    <% options = {:value=> url_for(params.merge(local_assigns).merge(:line_id=>line.id))} %>
+    <% options[:selected] = "selected" if (line.id.to_s == (local_assigns[:line_id]||params[:line_id]).to_s) %>
+    <%= content_tag('option', line.name, options) %>
+  <% end %>
+</select>

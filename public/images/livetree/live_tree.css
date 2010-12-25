@@ -1,0 +1,100 @@
+.live_tree {
+    background-color: white;
+    border: 1px dotted #666666;
+    padding: 5px;
+    margin:0 0 5px 0;
+    overflow: auto;
+    float: left;
+    width: 93%;
+    height: 620px;
+    position: relative;
+}
+
+#sidebar .live_tree{
+	width: 93%;
+  height: 620px;
+  float: left;
+  position: relative;
+}
+
+.sidebar_tree {
+}
+.live_tree_loading_tree {
+    color: black;
+}
+
+.live_tree_searching {
+    margin-bottom: 10px;
+}
+
+.live_tree_item {
+    white-space: nowrap;
+}
+
+
+.live_tree_item_heading {
+}
+
+a.live_tree_branch_expand_collapse_link {
+}
+
+.live_tree_item_icon {
+    color: #048;
+    border-style: none;
+    margin-right: 0.5ex;
+    width: 9px;
+    height: 9px;
+}
+
+.live_tree_branch_expanded_icon {
+    background: url(live_tree_branch_expanded_icon.gif) no-repeat;
+}
+
+.live_tree_branch_collapsed_icon {
+    background: url(live_tree_branch_collapsed_icon.gif) no-repeat;
+}
+
+.live_tree_leaf_icon {
+}
+
+.live_tree_check_box {
+}
+
+.live_tree_loading_icon {
+    margin-right: 0.5ex;
+    width: 10px;
+    height: 10px;
+}
+
+a.live_tree_item_link {
+    color: black;
+}
+
+.live_tree_item_name {
+    color: black;
+}
+
+.live_tree_active_item_name {
+    background-color: #048;
+    color: white;
+}
+.live_tree_item_icon {
+    width: 11px;
+    height: 9px;
+}
+
+.live_tree_branch_expanded_icon {
+    background: url(live_tree_branch_expanded_icon_win.gif) no-repeat;
+}
+
+.live_tree_branch_collapsed_icon {
+    background: url(live_tree_branch_collapsed_icon_win.gif) no-repeat;	
+}
+
+.live_tree_item_indent {
+    margin-left: 1em;
+    padding-left: 18px  !important;
+}
+
+
+

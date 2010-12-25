@@ -1,0 +1,71 @@
+<div class="contextual">
+<%= link_to(l(:label_history), {:action => 'history', :id => @pm_model}, :class => 'icon icon-history') %>
+</div>
+<h2>合并当前项目的［<%= link_to "#{@pm_model.name}", pm_model_path(@pm_model) %>］回基线</h2>
+
+<%= render :partial => 'shared/diff', :locals => {:diff => @diff, :diff_type => 'sbs'} %>
+
+	
+<% merge_tag_html = submit_tag( "合并到基线", :id=>"submit", :confirm => "此操作将会:\n1: 删除项目中该页面的数据.\n2: 将合并后的结果覆盖到基线中.\n您确定继续？" )%>
+	
+
+<% form_tag '',{:method=>"post"}  do %>	
+<center>
+	<% if @diff.same? %>
+		<%= hidden_field_tag "same", true %>
+		<%= merge_tag_html %>
+	<% else %>
+		<button go="left">使用左边的版本</button>
+		<button go="right">使用右边的版本</button>
+	
+		<p></p>
+	
+		<% tabs = [{:code => "编辑xml"},{:preview => "预览&提交"}] %>
+	
+		<%= tabs_header(tabs) %>
+	
+		<% tab_content(:code, tabs) do %>
+			<textarea id = "merged" name="merged" cols="120" rows="20"></textarea>
+		<% end %>
+	
+		<% tab_content(:preview, tabs) do %>
+			<%= merge_tag_html %>
+			<div id="preview">
+				<h3>请点输入合并结果</h3>
+			</div>
+		
+		<% end %>
+	
+	<% end %>
+
+	<script type="text/javascript" charset="utf-8">
+		jQuery(document).ready(function($) {
+			// $("#submit").hide()
+			$("button").click(function(){
+				$.get('<%= pm_model_version_path(@pm_model,"show",:id=>@bm_version.id,:from_id=>@current_version.id) %>',{go: $(this).attr("go")}, function(resp){
+					$("#submit").show()
+					$("#merged").val(resp)
+				})
+				return false
+			})
+		
+			$("#tab-preview").click(function(){
+				$.post('<%= preview_pm_lib_pm_models_path(@pm_lib) %>',{xml: $("#merged")&&$("#merged").val()}, function(resp){$("#preview").html(resp)})
+				return false
+			})
+		
+			$("#submit").click(function(){
+				if($("#merged").val().trim().length == 0){
+					alert("请输入合并后的xml")
+					return false
+				}
+			})
+		})
+	</script>
+
+	<% content_for :header_tags do %>
+		<%= stylesheet_link_tag "scm" %>
+	<% end %>
+	
+	</center>
+<% end %>

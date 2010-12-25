@@ -1,0 +1,61 @@
+<style type="text/css" media="screen">
+	.inplaceeditor-form{display:inline;}
+</style>
+<%= render_facebox %>
+<%
+  folder_g_name = @pm_folder.root? ?  "应用" : "目录"
+	path =  new_pm_lib_pm_folder_pm_model_path(params[:pm_lib_id], @pm_folder.id)
+	add_model_link	 = link_to_popup('添加Page',path)
+%>     
+
+   
+<script type="text/javascript">  
+// jQuery(document).ready(function($) {
+//   $('.winpopup').popupWindow({ 
+// 			height:500, 
+// 			width:800, 
+// 			top:50, 
+// 			resizable: 1,
+// 			left:50 
+// 	});
+// })  
+
+</script>
+
+<% if @pm_folder.root? %>
+	 <%= add_model_link %>
+<% else %>
+	<div class="nav-toolbar">
+		<% crumb = @pm_folder.ancestors.reverse.map{|e|link_to e.name, pm_lib_pm_folder_path(@pm_lib.id, e)} 
+			 crumb.shift%>
+		
+		<%= breadcrumb crumb.push(@pm_folder.name) %>
+		<%= link_to "转到基线库", pm_lib_pm_folder_path(PmLib::BASE, @pm_folder.id), :popup => true %>
+		
+	</div>
+		<p>
+		说明: <%= @pm_folder.title %></p>
+		<h3><%= @pm_folder.win32?||@pm_folder.parent_win32? ? "这是一个WinModel目录" : "" %></h3>
+<% end %>
+<% if !@pm_folder.pm_models.empty?%>  
+		<%= add_model_link %>	
+	  <% table @pm_folder.pm_links, %w[名称 当前状态 操作  owner  说明] do |row, klass|%>
+			<tr class="<%= klass %>">
+				<%= render :partial => "model_list_item", :locals=>{:link => row} %>
+			</tr>
+		<% end %>
+<% elsif !@pm_folder.children.empty?%>    
+		 <h2><%= "#{folder_g_name}列表" %></h2>		
+		  <% table @pm_folder.children, %w[名称 说明] do |row, klass|%>
+				 <tr class="<%= klass %>">
+			  	<td>                       
+						<%= link_to row.name , pm_lib_pm_folder_path(@pm_lib, row.id) %>
+		  		</td>
+			   	<td>
+				 		<%= row.title %>
+		  		</td>
+				</tr>
+			<% end %>    
+<% else %>
+	<%= [add_model_link].join("|") %>
+<% end %>  

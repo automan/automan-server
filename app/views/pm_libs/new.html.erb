@@ -1,0 +1,10 @@
+<h1>新建对象库</h1>
+
+<% remote_form_for(@pm_lib) do |f| %>
+  <%= render :partial => 'form', :locals => {:f => f} %> 
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', pm_libs_path %>

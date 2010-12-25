@@ -1,0 +1,10 @@
+
+<h2><%= render :partial => 'breadcrumbs', :locals => { :path => @pm_model.folder_trace.push(@pm_model), :pm_lib => @pm_model.pm_lib } %></h2>
+
+<p><%= render :partial => 'link_to_functions' %></p>
+
+<%= render :partial => 'shared/file', :locals => {:content => @pm_version.xml} %>
+
+<% content_for :header_tags do %>
+	<%= stylesheet_link_tag "scm" %>
+<% end %> 

@@ -1,0 +1,29 @@
+<%= render :partial => "layouts/top", :locals=>{:hide_top=>true} %>
+<style type="text/css" media="screen">
+	.padl1ex{padding-left:1px;}
+	#folder,#topbar, #content{border:1px solid #7799DD;margin:5px 0;}
+	<% if self.controller_name == "pm_elements" %>
+		#content{float:none !important;padding:0 !important;}
+		#element{border:none;}
+	<% end %>
+</style>
+  <% if has_content?(:topbar)%>
+		<%= yield :topbar %>
+	<% end %>
+  <div id="content">            
+		<%= render_flash_messages %>
+    <%= yield %>
+  </div>
+  <div id="sidebar">        
+      <%= yield :sidebar %>
+  </div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span><%= l(:label_loading) %></span></div>
+<% if !request.xhr? %>
+	<%= render :partial => "layouts/foot" %> 
+<% end %>
+</div>
+</body>
+</html>
+

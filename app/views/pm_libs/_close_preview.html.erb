@@ -1,0 +1,20 @@
+<% model = link.model_in_project %>
+	<td>                       
+		<%  if link.status == :link %>
+			<%= model.name  %>
+		<% elsif link.status == :edit %>
+			<%= link_to link.model.name, pm_model_path(link.model), :class=>"winpopup", :popup=>true%>
+		<% else %>
+			<%= link_to model.name, pm_model_path(model), :class=>"winpopup", :popup=>true%>
+		<% end %>
+	</td> 
+ 	<td>                       
+ 		<%= link.status_text %>
+		<%= link_to('合并到基线', merge_to_base_pm_lib_pm_model_path(@pm_lib.id, link.model_in_project), :confirm=>"确定此操作？") %>
+	</td>	
+	<td>
+   	<%= link_to_owner(model) %>
+	</td>
+ 	<td>                       
+ 		<%= model.title %>
+	</td>

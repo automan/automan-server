@@ -1,0 +1,8 @@
+<h2><%=  "版本比较 -- #{@pm_version.number}:#{@from_version.number}" %></h2>
+
+<%= render :partial => 'shared/diff', :locals => {:diff => @diff, :diff_type => @diff_type} %>
+
+
+<% content_for :header_tags do %>
+	<%= stylesheet_link_tag "scm" %>
+<% end %>

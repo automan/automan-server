@@ -1,0 +1,69 @@
+<% html_title @pm_lib.base? ? "基线" : "项目：#{@pm_lib.name}"%>
+
+<% content_for :topbar do %> 
+<style type="text/css" media="screen">
+	.gbm {
+	    border-color: #C9D7F1 #3366CC #3366CC #A2BAE7;
+	    border-style: solid;
+	    border-width: 1px;
+	    z-index: 1001;
+			position:absolute;
+	}
+	a.gb,a.gb:link, a.gb:visited {color:#0000CC !important;text-decoration:underline;}
+</style>
+
+
+<%= render :partial => "top_bar" %>
+<% end %>
+<%= javascript_include_tag '/livetree/live_tree' %>                                   
+<% content_for :sidebar do %>
+	 <%= live_tree :folder, {
+                  :initial_data_root => @folder_root,
+                  #:initial_data_options => { :depth => 2 },
+                  :initial_data_whole_tree => true,
+                  :preload_items => false,
+                  :allow_click_branch => true,
+                  :on_click_item => "onClickItem(item.id)"
+                  } %>
+     
+     <script type="text/javascript" charset="utf-8">
+      function onClickItem(folderID) {
+      	jQuery.get('<%= pm_lib_pm_folders_path(@pm_lib) %>/'+folderID+'?xhr=true', function(data){
+      		jQuery("#list_view").html(data.list_view)
+					jQuery("#topbar").replaceWith(data.top_bar)
+					jQuery("#ajax-indicator").hide()
+      	})
+      }          
+
+
+	 jQuery(document).ready(function($) {
+		var loadId = <%= @pm_folder.id%>
+        folder.expandItem(loadId)
+        onClickItem(loadId)
+
+		$("#type-link").live("click", function(){
+			if(!confirm("确实要修改？")){
+				return
+			}
+			
+			$("#ajax-indicator").show()
+			var link = $(this)
+			var folderId = link.attr("data-id")
+			$.post('/pm_libs/'+ <%= @pm_lib.id %> +'/pm_folders/'+ folderId +'/toggle_type', {from: link.attr("class")}, function(resp){
+				onClickItem(folderId)
+				alert(resp)
+			})
+			
+		})
+	 })
+  </script>
+<% end %>   
+
+<div id='list_view'>
+    <% unless request.xhr? %>
+	    <h1>正在加载，请稍等。。。</h1>
+		<%else%>
+			<center><h1>请点击左侧"对象树"</h1></center>
+    <%end%>
+</div>
+                                                                           

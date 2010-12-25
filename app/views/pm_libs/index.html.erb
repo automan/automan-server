@@ -1,0 +1,88 @@
+<%
+  #公共对象库变量
+  baselib = PmLib.base
+  root_folder = baselib.folder_root
+	apps = baselib.folder_root.children
+	slice_size = 3
+	
+	#私有对象库变量
+	
+	ownered_libs = Ownerable.by_user(User.current).by_obj_type(PmLib).owned.map(&:object).compact
+	fave_libs = UserFav.scoped_by_user_id(User.current.id).scoped_by_object_type(PmLib.to_s).map(&:object).compact
+	
+	my_favs = UserFav.scoped_by_user_id(User.current.id).scoped_by_object_type(PmFolder.to_s).map(&:object).compact
+ 	
+%>
+
+<% content_for :main_content do %>
+	<style type="text/css" media="screen">
+		.tagCol{width:100%;}
+		.operater{float:right;}
+	</style>
+	
+		
+	<h1>基库(淘宝全站)</h1>
+	<% infobox do  %>
+		<h2 style="padding-top: 10px;">我收藏的应用 · · · · · ·		
+		<%= link_to_popup "设置", fav_folder_pm_lib_path(baselib) , :style=>"float:right;" %></h2>
+		<p>
+			[设置]后， 点击<a style="padding-left: 10px;" href="javascript:location.reload()"><img alt="刷新" src="/images/refresh.gif"></a>才会出现在这里
+		</p>
+		
+		<table class="tagCol">
+			<% my_favs.each_slice(slice_size).each do|e| %>
+				<% e.fill(nil,e.length..(slice_size-1)) %>
+			<tr>
+				<% e.each do|f| %>
+					<td><%= link_to "#{f.name}(#{f.title})",pm_lib_pm_folder_path(baselib, f), :popup=>true if f %> </td>
+				<% end %>
+			</tr>
+			<% end %>
+		</table>
+		
+		
+	<% end %>
+	<% infobox do  %>
+		<h2 style="padding-top: 10px;">应用列表 · · · · · ·		
+		<%= link_to_popup "新建应用", new_pm_folder_path(:parent_id => root_folder) , :style=>"float:right;" %></h2>
+		<table class="tagCol">
+			<% apps.each_slice(slice_size).each do|e| %>
+				<% e.fill(nil,e.length..(slice_size-1)) %>
+			<tr>
+				<% e.each do|f| %>
+					<td><%= link_to "#{f.name}(#{f.title})",pm_lib_pm_folder_path(baselib, f), :popup=>true if f %> </td>
+				<% end %>
+			</tr>
+			<% end %>
+		</table>
+		<% end %>
+<% end  %>
+
+<% content_for :right_content do %>
+		<h1>我的对象库</h2>
+			<div class="clearfix">
+				
+   	  <%= link_to_popup "<span>查看全部</span>", {:action => "simple_list"},{:class=>"colbutt ll"}  %>
+   	  <%= link_to_popup '<span>新建对象库</span>', new_pm_lib_path, {:class=>"operater colbutt ll"} %>
+			</div>
+		<strong style="color:red;">原有的项目不见了？</strong><br>
+	   <%= link_to "查看原有的项目", "http://10.232.27.2:3009/pm_libs/simple_list", :popup=>true %>
+		<strong style="color:green;"><%= link_to_help "原有项目使用说明" %></strong>
+	
+	  <% [["我管理的","own",ownered_libs], ["我收藏的", "fav",fave_libs]].each do|pager| %>
+	  	<h2><%= pager.first %> · · · · · · </h2>
+	  	<div class="gray_ad">
+			<ul class="mbt">
+		    	<% pager.last.each do|e|  %>
+		    		<li class="mbtrmini">
+		    			<%= link_to "#{e.name}(#{e.title})", e%><br>
+		    			<span style="padding-left:18px;font-size:11px;">
+		    			创建时间：<%= format_date e.created_at %>
+		    			更新时间：<%= format_date e.updated_at %></span>
+		    			<%= link_to "删除", e, {:confirm=>"删除后将永久丢失， 您确认删除？", :method => "delete", :style=>"float:right;"} if pager[1]=="own"%>
+		    		</li>    	
+		    	<% end  %>
+		  </ul>
+	  	</div>
+	<% end %>
+<% end  %>

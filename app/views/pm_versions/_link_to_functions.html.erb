@@ -1,0 +1,2 @@
+<%= link_to "历史记录", :controller => "pm_models",  :action => "history", :id => @pm_model %> | 
+<%= link_to "下载",  pm_model_version_path(@pm_model, @pm_version.number,:format=>:xml), :popup => true %>

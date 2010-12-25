@@ -1,0 +1,10 @@
+<% remote_form_for(@pm_element) do |f| %>
+	<h1>新增 <%= @pm_element.pm_model.win32? ? "【win32】" : "" %> <%= @pm_element.leaf ? "控件" : "区域"%></h1>
+  <%= f.hidden_field "parent_id"%>           
+	<%= f.hidden_field "leaf"%>
+  <%= render :partial => "form", :locals => {:f => f} %>
+  <p>
+    <%= f.submit '保存' %>   
+	  <%= f.submit '保存并回父级' %>
+  </p>
+<% end %>

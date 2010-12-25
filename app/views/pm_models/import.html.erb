@@ -1,0 +1,20 @@
+<% remote_form_for(@pm_model, :url=>import_pm_lib_pm_models_path(@pm_lib), :html=>{:id => "import_pm_model"}) do |f| %>
+	<h1>导入xml</h1>
+	
+	<% if @error_message %>
+	  <div id="errorExplanation">
+	  	<%= h @error_message %>	
+	  </div>		
+	<% end  %>
+	
+	<%= f.error_messages %>   
+	<%= f.hidden_field :pm_folder_id %>
+	<p>名称: <%= f.text_field :name %> 选填， 将会覆盖xml中的名称</p>
+	<p>说明: <%= f.text_field :title %> 选填， 将会覆盖xml中的说明</p>
+
+	<p>xml: 必填， 请输入合法的xml <%= f.text_area :xml_string, :size => "80x20" %> </p>
+  <p>
+    <%= f.submit 'Import' %>
+  </p>  
+<% end %>
+

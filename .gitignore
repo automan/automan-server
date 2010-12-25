@@ -19,3 +19,5 @@ CVS
 *.swp
 .cvsignore
 .DS_Store
+config/database.yml.example.yml
+config/initializers/tam_config.rb.example

@@ -1,0 +1,2 @@
+
+<%= path.map{|e|link_to(e.name, "/pm_libs/#{pm_lib.id}/#{e.class.to_s.tableize}/#{e.id}")}.join("/") %>

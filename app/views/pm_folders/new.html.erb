@@ -1,0 +1,15 @@
+<% remote_form_for(@pm_folder) do |f| %>
+	<h1>添加<%=  @pm_folder.parent.root? ?  "应用" : "目录" %></h1>
+  <%= f.hidden_field "parent_id"%>
+  <%= render :partial => "form", :locals => {:f => f} %>
+  <% disable_folder_chbox = @pm_folder.parent_win32? %>
+  <p>
+    <%= check_box_tag :winmodel, 'yes', disable_folder_chbox,  { :disabled => disable_folder_chbox} %> 这是一个WinModel
+			<%= link_to_help "WinModel" %> 
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+	<%= link_to 'Back', pm_folders_path %>
+<% end %>
+

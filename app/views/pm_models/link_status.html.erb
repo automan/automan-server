@@ -1,0 +1,13 @@
+<% table @pm_model.pm_links, %w[项目 当前状态 owner] do |row, klass|%>
+	<tr class="<%= klass %>">
+  	<td>                       
+			<%= link_to row.pm_lib.name, pm_lib_pm_folder_path(row.pm_lib, row.current_model.pm_folder_id), :popup=>true%>
+		</td>
+  	<td>                       
+			<%= row.status_text %>
+		</td>
+		<td>
+	   	<%= link_to_owner(row.current_model) %>	   	
+   	</td>
+	</tr>
+<% end %>

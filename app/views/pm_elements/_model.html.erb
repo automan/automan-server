@@ -1,0 +1,73 @@
+<%
+	all_children = model.all_children
+ %>
+ 
+
+
+
+<script type="text/javascript" charset="utf-8">
+	  jQuery(document).ready(function($) { 	  	
+    	  $(".treeTable").treeTable();
+	  		
+    	  $("#toogle-all").click(function(){
+    	  	var otherClass = $(".parent.first-class")
+    	  	var expanded = false
+    	  	jQuery.each(otherClass, function() {    	  		 
+				  	 if($(this).hasClass("expanded")){
+				  	 	expanded = true;
+				  	 	return false
+				  	 }
+				  });
+				  var action = function(e){return e.expand()}
+				  
+    	  	if(expanded){
+    	  		action = function(e){return e.collapse()}
+    	  	}
+    	  	
+    	  	jQuery.each(otherClass, function(){
+    	  		action($(this))
+    	  	})
+    	  })
+  	})
+  	
+</script>
+<center style="width:800px;"> <h3>页面概览</h3></center>
+<div id="page-summery">
+	
+
+<table class="treeTable wikitable" style="font-size: 97%;">
+  <thead>
+    <tr>
+      <th width="19%" rowspan="2"><button id="toogle-all">(全部)展开/收起</button></th>
+      <th width="17%" rowspan="2">中文说明</th>    
+      <th colspan="3"><p>元素定义</p></th>
+      <th width="12%" rowspan="2">集合</th>
+      <th width="13%" rowspan="2">备注</th>
+    </tr>
+    <tr>
+      <th width="16%">type</th>
+      <th width="16%">selector</th>
+      <th width="14%">必填</th>
+    </tr>
+  </thead>
+   <tbody>
+    <% all_children.each do|e| %>
+	    <tr id="node-<%= e.id %>" class="entry <%= e.parent_id == model.id ? "first-class" : "other-class child-of-node-#{e.parent_id}" %>">
+	    	<td>
+	      	<a class="itemlink" id="element_item_link_3571"  href="<%= pm_element_path(e) %>" rel="facebox">
+	      		<s class="icon <%= e.live_tree_item_html_options[:cssClass]%>"></s>
+	      		<span class="live_tree_item_name"><%= e.name  %></span></a>	      		
+	      <td><%= inplace_update_attr(e, :title) %></td>                   
+	      <td><%= html_type(e) %></td>
+	      <td> <%= inplace_update_attr(e,"properties.selector")%></td>
+	      <td><%= boolean_display e.properties.required %></td>
+	      <td><%= boolean_display e.properties.collection %></td>
+	      <td><%= e.properties.memo%> </td>
+	    </tr>
+    <% end %>
+  </tbody>
+
+</table>
+
+
+</div>

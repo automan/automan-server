@@ -1,0 +1,45 @@
+<script type="text/javascript" charset="utf-8">
+	jQuery.noConflict();
+ jQuery(document).ready(function($) {
+   $('a[rel*=facebox]').facebox() 
+   $('.pagination a').facebox() 
+ })
+</script> 
+<table id="topbar" cellspacing="0" cellpadding="0" border="0" width="100%" >
+  <tbody> 
+  <td width="4"></td>
+  <td>
+	
+  <span class="fontsize3">
+			您所在的位置：
+			<%= link_to @pm_lib.name_zh, @pm_lib, :class=>"gb" %>(<%= link_to_popup "切换<small>▼</small>","/pm_libs/simple_list" %>)   &gt; 
+			<% bread_cubs = @pm_folder.ancestors_except_root.reverse %>
+			<% bread_cubs.shift %>
+			<% bread_cubs.each do |folder,index|%>
+				<span style="font-size:12px;">
+				  <%= folder.name %>
+			  </span>  &gt; 
+			<% end %>
+			<% if !@pm_folder.root? %>
+			<%= @pm_folder.name %>
+			
+		  <a href="<%= bread_cubs.last ? pm_folder_path(bread_cubs.last) : pm_lib_path(@pm_lib) %>">
+		  <img height="12" border="0" width="11" vspace="0" alt="clear" src="/images/dir_x.gif">
+		  </a>
+			<% end %>
+	
+  </span> &nbsp; </td>
+  <td align="right" class="sxs">
+  <form  method="GET" name="gs2" class="mrgall2">
+		<% if !@pm_lib.base?  %>
+					<%= link_to_popup "关闭项目", close_pm_lib_path(@pm_lib), {:class=>"icon icon-lock"} %>|
+		<% end %>
+		<%= link_to "脚本生成器", {:controller => "pm_scripts",  :action => "new", :pm_lib_id=>@pm_lib.id}, {:class=>"icon icon-stats",:popup => true} %>|
+	  <input type="text" value="" maxlength="2048" size="25" name="q"  style="margin-left:20px;">
+	  <input type="hidden" value="en" name="hl">
+
+  <input type="submit" id="search" value="搜索" name="qt_d" onclick="alert('紧张开发中');return !1">&nbsp;
+  </form>
+  </td>
+  <td></td>
+  </tr></tbody></table>

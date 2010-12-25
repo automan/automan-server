@@ -1,0 +1,30 @@
+<div style="min-width:500px;">
+	<% if @pm_links.empty? %>
+		<%= button_to "删除此目录", @pm_folder, :confirm => '您确定要删除?', :method => :delete %>
+	<% else %>
+		<div class="flash notice">
+			项目中的<%= @pm_links.size %>个page关联到此目录，删除这些page后，才能继续此操作！<br>
+		</div>
+		<% if @pm_links.size>10 %>
+			<strong>这里只列出前10个</strong>
+		<% end %>
+
+		<% table @pm_links[0..10], %w[项目名称  page名称 状态] do |row, klass|%>
+				<% project_model = row.model_in_project %>
+				<tr class="<%= klass %>">
+			  	<td>                       
+						<%= link_to row.pm_lib.name, row.pm_lib,:popup=>true%>
+					</td>
+			  	<td>                       
+						<%= link_to project_model.name, pm_model_path(project_model), :class=>"winpopup", :popup=>true %>
+					</td>
+			  	<td>                       
+					 		<%= row.status_text %>
+					</td>
+			</tr>
+		<% end %>
+
+
+	<% end %>
+	
+</div>

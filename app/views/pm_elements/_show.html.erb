@@ -1,0 +1,58 @@
+<div id="pm_element_form">
+<%= render_facebox %>     
+<% nav_links = [] %>
+<% if params[:facebox] %>
+<% else %>
+
+	<%
+		breadcrumb_links =  @pm_element.traces.map{|e|link_to(e.tree_name, pm_model_pm_element_path(e.pm_model_id, e))}   
+	
+		add_submodel_link = (link_to_popup '新增 SubModel ', 	 new_pm_element_path("pm_element[parent_id]" => @pm_element, "pm_element[leaf]"=>0)) 
+		add_element_link  = (link_to_popup '新增 Element', 	 new_pm_element_path("pm_element[parent_id]" => @pm_element))
+	%>
+
+	<% 
+		
+		
+		 if !@pm_element.leaf	
+		  nav_links += [add_element_link,add_submodel_link+"|"]
+		 end
+		 
+		 if @pm_element.root?
+	     nav_links << link_to("导出为XML", pm_model_path(@pm_element.pm_model, :format=>"xml"), :popup=>true)
+	     nav_links << link_to_popup(@pm_model.image ? "图片" : "上传图片"  , { :controller => "pm_models",  :action => "upload_pic", :id => @pm_model})
+	     nav_links << link_to("修改记录", history_pm_model_path(@pm_element.pm_model))+" |"
+			 if !@pm_model.base?
+				 nav_links << link_to("转到基线", pm_model_path(@pm_model.bm), :popup=>true)
+			 end
+	   end
+	%>              
+<div class="nav-toolbar">
+	 <%= breadcrumb  breadcrumb_links %>
+</div>
+<ul class="nav">
+	<% nav_links.each do|link| %>
+		<li><%= link %></li>
+	<% end %>
+		            
+</ul> 
+        
+<% end %>
+
+<% if @pm_element.root? %>
+ <%= render :partial => "pm_elements/root_view" %>   
+<% else %>
+ <% remote_form_for(@pm_element) do |f| %>
+    <%= link_to_popup "转移到...", move_pm_element_path(@pm_element)  %>
+    <%= render :partial => "pm_elements/form", :locals => {:f=>f} %>    
+		<% if params[:facebox] %>
+			<%= hidden_field_tag :from, "index" %>
+		<% end %>
+		<p>
+		 <%= submit_tag '保存' %>
+			<%= link_to "删除此#{@pm_element.sub_model? ? '区域' : '控件'}", @pm_element, :confirm => '您确定要删除?', :method => :delete %>
+		</p>
+ <% end %>  
+<% end %>              
+	                 
+</div> 

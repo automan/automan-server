@@ -1,0 +1,36 @@
+<% model = link.model_in_project %>
+	<td>                       
+		<%  if link.status == :link %>
+			<%= model.name  %>
+		<% elsif link.status == :edit %>
+			<%= link_to link.model.name, pm_model_path(link.model), :class=>"winpopup", :popup=>true%>
+		<% else %>
+			<%= link_to model.name, pm_model_path(model), :class=>"winpopup", :popup=>true%>
+		<% end %>
+	</td> 
+ 	<td>                       
+ 		<%= link.status_text %>
+		<% if link.status == :link %>
+	   (	<%= link_to('复制到项目', edit_in_project_pm_lib_pm_model_path(@pm_lib, model), :method => :post, :confirm => '您确定要开始编辑此页面?')  %>)
+		<% end %>
+	</td>	
+ 	<td>                
+		<% if link.status != :new %>
+			<%= link_to "转到基线", pm_model_path(link.bm) %>｜
+		<% end %>
+   	<%= link_to '删除', pm_model_path(model, :project=>@pm_lib), :confirm => '您确定要删除?', :method => :delete %>
+		
+		<span style="font-size:11px;">（<% if link.status == :link %>
+		  只会删除此链接
+		<% elsif link.status == :edit %>
+			只会删除此［副本］
+		<% elsif link.status == :new %>
+			将彻底删除
+		<% end %>）</span>
+	</td>
+	<td>
+   	<%= link_to_owner(model) %>
+	</td>
+ 	<td>                       
+ 		<%= model.title %>
+	</td>

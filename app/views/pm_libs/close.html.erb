@@ -1,0 +1,15 @@
+<% if(not_merged = @pm_lib.pm_links.not_merged).empty? %>
+	<% form_tag close_pm_lib_path(@pm_lib), {:method => "post"} do -%>
+		<p>该项目所有page均已合并到基线，可以关闭</p>
+	  <%= submit_tag "关闭此项目", :confirm => "此操会删除所有项目数据，请谨慎！" %>
+	<% end -%>
+<% else %>
+<div style="min-width:600px;">
+	该项目有以下page<span class="notice">还没有合并到基线，</span>请将所有page合并到基线后，再执行此操作
+	<% table not_merged, %w[名称 当前状态 owner  说明] do |row, klass|%>
+		<tr class="<%= klass %>">
+			<%= render :partial => "close_preview", :locals=>{:link => row,:model=>row.model} %>
+		</tr>
+	<% end %>
+</div>
+<% end %>

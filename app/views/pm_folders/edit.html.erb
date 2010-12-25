@@ -1,0 +1,12 @@
+<h1>Editing pm_folder</h1>
+
+<% form_for(@pm_folder) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @pm_folder %> |
+<%= link_to 'Back', pm_folders_path %>

@@ -1,0 +1,7 @@
+<% if @pm %>
+	
+<% else %>
+	<p><%= select_tag("page_model", options_for_select(@pm_lib.pm_models.map{|e|[e.name, e.id]})) %></p>
+<% end %>
+	
+ 

@@ -1,0 +1,4 @@
+<% form_tag do %> 
+	<%= select_tag("move_to", pm_element_options_for_select(@pm_model, :stop_object => @pm_element)) %>
+	<%= submit_tag "确定", :disable_with => 'Saving...' %>
+<% end %>

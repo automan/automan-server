@@ -1,0 +1,16 @@
+<script type="text/javascript" charset="utf-8">
+	jQuery(document).ready(function($) {
+		$("#folder_select").change(function(){
+			if($(this).val()==""){
+				return false
+			}
+			$.get('<%= new_pm_lib_pm_folder_pm_model_path(params[:pm_lib_id], params[:pm_folder_id]) %>', {folder_id: $(this).val()}, function(resp){
+				$("#form-content").html(resp)
+			})
+		})
+	});
+</script>
+<% remote_form_for(@pm_model) do |f| %>  
+  所在目录：<%= select_tag("pm_model[pm_folder_id]", pm_folder_options_for_select(PmLib::BASE, :no_root => true, :include_blank=>true), :id=>"folder_select") %>
+	<div id="form-content"></div>
+<% end %>

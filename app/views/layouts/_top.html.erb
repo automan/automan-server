@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title><%= @html_title||@title||"AutoMan" %></title>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+    <%= stylesheet_link_tag 'application','automan_red','/facebox/facebox', '/livetree/live_tree', :media => 'all' %>
+    <%= javascript_include_tag  'prototype','jquery', '/facebox/facebox', '/livetree/live_tree','application' %>
+
+
+		<%= javascript_include_tag "/automan/treetable/treetable.js" %>      
+		<%= stylesheet_link_tag '/automan/treetable/treetable.css' %>
+    <%= yield :header_tags %>
+  </head>
+  <script type="text/javascript" charset="utf-8">
+    jQuery.noConflict();
+    jQuery(document).ready(function($) {
+      $('a[rel*=facebox]').facebox()
+      $().ready(function(){
+        $.ajaxSetup({
+          error:function(x,e){
+            if(x.status==0){
+              alert('You are offline!!\n Please Check Your Network.');
+            }else if(x.status==404){
+              alert('Requested URL not found.');
+            }else if(x.status==500){
+              alert('Automan出错啦！请确保您输入了正确的参数， 如果怀疑这是一个Bug， 请报告给[南飞]同学');
+            }else if(e=='parsererror'){
+              alert('Error.\nParsing JSON Request failed.');
+            }else if(e=='timeout'){
+              alert('Request Time out.');
+            }else {
+              alert('Unknow Error.\n'+x.responseText);
+            }
+            $("#ajax-indicator")&&$("#ajax-indicator").hide()
+          }
+        });
+      });
+    })
+  </script>
+
+  <% if local_assigns.has_key? :popup %>
+    <div id="wrapper" class="popup">
+    <% else %>
+      <div id="wrapper">
+      <% end %>
+      <%= tag('div', {:id => 'main', :class => (has_content?(:sidebar) ? '' : 'nosidebar')}, true) %>
+      <% if !request.xhr? %>
+        <%- if params[:controller] != "pc_jobs" && params[:action] != "create_job" -%>
+          <div id="top-menu">
+            <ul>
+              <li><a href="javascript:history.back()"><img alt="后退" src="/images/page-prev.gif"></a></li>
+              <li><a href="javascript:history.forward()"><img alt="前进" src="/images/page-next.gif"></a></li>
+              <li><a href="javascript:location.reload()"><img alt="刷新" src="/images/refresh.gif"></a></li>
+              <li style="padding-left: 230px;">
+                欢迎：<%= User.current.nickname %>
+              </li>
+            </ul>
+          </div>
+        <%- end -%>
+      <% end %>

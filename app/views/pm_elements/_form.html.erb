@@ -1,0 +1,46 @@
+	<%= f.error_messages %>
+	<p>名称(英文): <%= f.text_field :name, :size=>12 %> 
+		
+		      <%= f.radio_button :leaf, true, :id => "element_radio", :disabled => @pm_element.sub_model? %> 
+					<%= label_tag("element_radio", "Element")%> 
+					
+					<%= f.radio_button :leaf, false, :id => "submodel_radio", :disabled => @pm_element.sub_model? %> 
+					<%= label_tag("submodel_radio", "SubModel")%></p>        
+	                                                 
+	<p>说明(中文): <%= f.text_field :title %> </p>  
+	                                  
+	
+	 <% fields_for "properties", @pm_element.properties do |ff| -%>   
+	  <% if @pm_element.leaf %>
+			<p>元素类型: <%= ff.select :html_type, @pm_element.html_types %> 
+				<%= link_to_help("Page_model操作")%></p>
+	  <% end %>
+	
+		<p>Selector: <%= ff.text_field :selector %>
+			<%= link_to_help "有关selector的书写" %> </p>       
+		<p>必填: 	<%= ff.radio_button :required, true %> 
+			<%= ff.label("required", "是")%> 
+       
+			<%= ff.radio_button :required, false %> 
+			<%= ff.label("required", "否")%>  </p>       
+			<p>集合: 
+			<%= ff.radio_button :collection, true %> 
+			<%= ff.label("collection", "是")%> 
+       
+			<%= ff.radio_button :collection, false %> 
+			<%= ff.label("collection", "否")%> 
+			
+			<%= link_to_help "Collection填写说明" %>
+		  </p>   
+			
+		  <p>在左侧树上的顺序: 
+		  	<%= f.text_field :position, :size => "2" %>
+				<%= link_to_help "如何调整页面元素的顺序" %>
+		  </p>   
+			<p>注释：				
+				<br>
+				(比如一些使用示例等， 不会在运行日志中出现)
+				<br>
+				<%= ff.text_area :user_comments, :size => "50x5"%>
+			</p>     
+	 <% end -%>

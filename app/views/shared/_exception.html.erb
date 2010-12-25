@@ -1,0 +1,79 @@
+<h2>访问Automan出现异常</h2>
+<style type="text/css" media="screen">
+	.opt li{
+		font-size: 15px;
+		color:green;
+	}
+</style>
+<% if @exception %>
+<h1><%= @exception.message %></h1>
+您现在可以：
+<ul class="opt">
+	<li>把错误报告给： 云梦</li>
+	<li><%= link_to "后退", :back%>到上一个操作 </li>
+</url>	
+	 
+
+
+
+<% @exception = exception %>
+<h4>技术信息：</h4>
+
+
+
+
+<%
+  traces = [
+    ["Application Trace", @exception.application_backtrace],
+    ["Framework Trace", @exception.framework_backtrace],
+    ["Full Trace", @exception.clean_backtrace]
+  ]
+  names = traces.collect {|name, trace| name}
+%>
+
+<p><code>RAILS_ROOT: <%= defined?(RAILS_ROOT) ? RAILS_ROOT : "unset" %></code></p>
+
+<div id="traces">
+  <% names.each do |name| %>
+    <%
+      show = "document.getElementById('#{name.gsub /\s/, '-'}').style.display='block';"
+      hide = (names - [name]).collect {|hide_name| "document.getElementById('#{hide_name.gsub /\s/, '-'}').style.display='none';"}
+    %>
+    <a href="#" onclick="<%= hide %><%= show %>; return false;"><%= name %></a> <%= '|' unless names.last == name %>
+  <% end %>
+
+  <% traces.each do |name, trace| %>
+    <div id="<%= name.gsub /\s/, '-' %>" style="display: <%= name == "Application Trace" ? 'block' : 'none' %>;">
+      <pre><code><%= trace.join "\n" %></code></pre>
+    </div>
+  <% end %>
+</div>
+
+
+
+<% unless @exception.blamed_files.blank? %>
+  <% if (hide = @exception.blamed_files.length > 8) %>
+    <a href="#" onclick="document.getElementById('blame_trace').style.display='block'; return false;">Show blamed files</a>
+  <% end %>
+  <pre id="blame_trace" <%='style="display:none"' if hide %>><code><%=h @exception.describe_blame %></code></pre>
+<% end %>
+
+<%
+  clean_params = request.parameters.clone
+  clean_params.delete("action")
+  clean_params.delete("controller")
+
+  request_dump = clean_params.empty? ? 'None' : clean_params.inspect.gsub(',', ",\n")
+%>
+<% else %>
+ <h1>系统出现异常</h1>
+<% end %>
+<h2 style="margin-top: 30px">Request</h2>
+<p><b>Parameters</b>: <pre><%=h request_dump %></pre></p>
+
+<p><a href="#" onclick="document.getElementById('session_dump').style.display='block'; return false;">Show session dump</a></p>
+<div id="session_dump" style="display:none"><%= debug(request.session.instance_variable_get("@data")) %></div>
+
+
+<h2 style="margin-top: 30px">Response</h2>
+<p><b>Headers</b>: <pre><%=h response ? response.headers.inspect.gsub(',', ",\n") : 'None' %></pre></p>

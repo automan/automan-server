@@ -1,0 +1,8 @@
+<% remote_form_for(@pm_model) do |f| %>  
+	<h1>添加Page</h1>
+	<%= f.hidden_field :pm_folder_id %>
+	<%= render :partial => 'form', :locals => {:f => f} %>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>                         

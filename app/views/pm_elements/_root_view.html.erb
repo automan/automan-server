@@ -1,0 +1,43 @@
+<h3>页面(PageModel)</h3> 
+
+<% remote_form_for(@pm_model) do |f| %>      <%= f.error_messages %>    
+	<div class="issue">
+			<% updated_by = @pm_model.updated_by %>
+	
+			<table class="attributes">
+					<tr>
+				    <th class="status">命名空间:</th>
+				    	<td colspan="2">	
+				    		<%= text_field_tag(:root,@pm_element.pm_model.namespaces.push(@pm_element.pm_model.name).join("::"),{ :readonly=>true, :style=>"width:70%;"}) %>     
+			    		</td>
+			    		<td>
+			    		</td>
+				    </td>
+					</tr>
+					<tr>
+				    <th>名称(英文):</th><td>
+						<% @locked = @pm_model.leve_1_locked?%>
+						<%= f.text_field :name, :disabled => !@locked.nil?  %> <%= @locked if @locked %></td>
+				    
+				    <th>说明(中文): </th><td><%= f.text_field :title  %> </td>
+					</tr>
+					<% unless @pm_model.win32? %>
+					<tr>
+				    <th>URL:</th><td colspan="3"><%= f.text_field :url, :size=>64 %> (以http://开头) </td>
+					</tr>
+					<% end %>
+					<tr>
+						<td> <%= submit_tag 'Update' %>   </td>
+				    <th  colspan="2">
+				    	owner: <%= link_to_owner(@pm_model) %>
+						<% if updated_by %>
+						, 由 <%= link_to_user updated_by.user%>在<%= format_date(updated_by.created_at) %>添加
+						<% end  %>
+						</th>
+					</tr>
+				</table>	
+	</div>
+<% end -%>
+
+<%= render :partial => "shared/page_model", :object => @pm_model%>   
+

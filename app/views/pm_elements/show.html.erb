@@ -1,0 +1,58 @@
+<style type="text/css" media="screen">	
+	.page-summery{
+			overflow:scroll;
+			max-height:600px;
+	}
+</style>
+
+<% html_title  "#{@pm_element.title}(#{@pm_element.name})" %>
+ 
+
+
+<script type="text/javascript" charset="utf-8">
+	  jQuery(document).ready(function($) {
+	  	$("input[name=tree_view_mode]").click(function(){
+	  		$("#view-mode").submit()
+	  	})
+  	})
+</script>
+     
+<% content_for :topbar do %>
+	<%= render :partial => "pm_folders/top_bar" %>
+<% end %>
+	
+
+       
+<div id='list_view' style="float:right;width:81%">
+    <% unless request.xhr? %>
+	    <h1>正在加载，请稍等。。。</h1>
+		<%else%>
+			<center><h1>请点击左侧</h1></center>
+    <%end%>
+</div>                                          
+<div style="width:17 float: left;height: 620px;width: 17%;margin: 0;min-height: 600px;padding: 0;position: relative;border-right:1px solid #7799DD;">
+	<form id="view-mode" action="" method="get">
+	英文<%= radio_button_tag("tree_view_mode","en", cookies[:tree_view_mode] == "en") %>&nbsp&nbsp&nbsp
+	中文<%= radio_button_tag("tree_view_mode","zh", cookies[:tree_view_mode] == "zh") %>	 
+	</form>
+	<%= live_tree :element, {
+	                :initial_data_root => @element_root,
+	                :initial_data_options => { :depth => 5 ,:get_item_name_proc => Proc.new { |x|x.tree_name(cookies[:tree_view_mode])}},
+	                :initial_data_whole_tree => true,
+	                #:css_class => "sidebar_tree",
+	                :preload_items => false,
+	                :allow_click_branch => true,
+	                :on_click_item => "onClickItem(item.id)"
+	                }
+	   %>
+	   <script type="text/javascript" charset="utf-8">
+	    function onClickItem(elementID) {
+	      new Ajax.Updater('list_view', '<%= pm_model_pm_elements_path(@pm_element) %>/'+elementID, { method: 'get', asynchronous:true, evalScripts:true})   
+	    }                          
+	    Event.observe(window,"load",function(event){
+	        var loadId = <%= @pm_element.id%>
+	        element.expandItem(loadId)
+	        onClickItem(loadId)
+	    });
+	</script>
+</div>

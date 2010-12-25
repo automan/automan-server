@@ -1,0 +1,13 @@
+<h1>Editing pm_model</h1>
+
+<% form_for(@pm_model) do |f| %>
+ <%= render :partial => 'form', :locals => {:f => f} %>
+
+
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @pm_model %> |
+<%= link_to 'Back', pm_models_path %>

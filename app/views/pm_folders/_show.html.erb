@@ -1,0 +1,64 @@
+<style type="text/css" media="screen">
+	.inplaceeditor-form{display:inline;}
+</style>
+<%= render_facebox %>
+<%
+  folder_g_name = @pm_folder.root? ?  "应用" : "目录"
+	add_folder_link = (link_to_popup "添加#{folder_g_name}", 	 new_pm_folder_path(:parent_id => @pm_folder)) 
+	add_model_link  = if(@pm_folder.root?) 
+		link_to_function '添加Page', 	 "alert('Root Folder不能添加Page， 请先新建一个Folder')"
+	else
+		link_to_popup('添加Page', 	 new_pm_lib_pm_model_path(@pm_lib,"pm_model[pm_folder_id]" => @pm_folder))+"|"+\
+		link_to_popup('导入Page', 	 import_pm_lib_pm_models_path(@pm_lib, "pm_model[pm_folder_id]" => @pm_folder))
+	end
+	[add_folder_link, add_model_link].each{|e|e << "| "+(link_to('导出到项目', export_pm_folder_path(@pm_folder)))}
+%>     
+
+   
+<script type="text/javascript">  
+// jQuery(document).ready(function($) {
+//   $('.winpopup').popupWindow({ 
+// 			height:500, 
+// 			width:800, 
+// 			top:50, 
+// 			resizable: 1,
+// 			left:50 
+// 	});
+// })  
+
+</script>
+<% if !@pm_folder.root? %>
+	<div class="nav-toolbar">
+		<%= inplace_update_attr(@pm_folder, :name) %>(
+		<%= inplace_update_attr(@pm_folder, :title) %>)
+	</div>
+		<h3><%= @pm_folder.win32?||@pm_folder.parent_win32? ? "这是一个WinModel目录" : "" %></h3>
+<% end %>
+<% if !@pm_folder.pm_models.empty?%>    
+	<%= add_model_link %>           
+	<%= render :partial => "base_pm_list" %>
+<% elsif !@pm_folder.children.empty? %>   
+	 <h2><%= "#{folder_g_name}列表" %></h2>  
+		<%= add_folder_link %>           
+	  <% table @pm_folder.children, %w[名称 说明] do |row, klass|%>
+		 <tr class="<%= klass %>">
+		  	<td>                       
+					<%= link_to row.name , pm_lib_pm_folder_path(row.pm_lib_id, row) %>
+	  		</td>
+		   	<td>                       
+			 		<%= row.title %>
+	  		</td>
+	 	 </tr>
+	  <% end %>    
+<% else %>
+
+	<%= [add_folder_link, add_model_link].join("|") %>
+<% end %>  
+
+<hr/>
+<p>  
+	<% if @pm_folder.root? %>
+	<% else %>   
+		  <%= link_to_popup	"删除此目录", delete_preview_pm_folder_path(@pm_folder)%>
+	<% end %>      
+</p>  
