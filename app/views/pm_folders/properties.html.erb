@@ -1,7 +1,7 @@
 <h2>设置［目录］属性</h2>
 
 <% remote_form_for(@pm_folder) do |f| %>
-	<h1>添加<%=  @pm_folder.parent.root? ?  "应用" : "目录" %></h1>
+	<h1>添加<%=  @pm_folder.parent.root? ?  "模块" : "目录" %></h1>
   <%= f.hidden_field "parent_id"%>
   <%= render :partial => "form", :locals => {:f => f} %>
   <p>

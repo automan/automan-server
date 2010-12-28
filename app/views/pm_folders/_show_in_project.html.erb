@@ -3,7 +3,7 @@
 </style>
 <%= render_facebox %>
 <%
-  folder_g_name = @pm_folder.root? ?  "应用" : "目录"
+  folder_g_name = @pm_folder.root? ?  "模块" : "目录"
 	path =  new_pm_lib_pm_folder_pm_model_path(params[:pm_lib_id], @pm_folder.id)
 	add_model_link	 = link_to_popup('添加Page',path)
 %>     

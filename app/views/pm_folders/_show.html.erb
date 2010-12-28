@@ -3,7 +3,7 @@
 </style>
 <%= render_facebox %>
 <%
-  folder_g_name = @pm_folder.root? ?  "应用" : "目录"
+  folder_g_name = @pm_folder.root? ?  "模块" : "目录"
 	add_folder_link = (link_to_popup "添加#{folder_g_name}", 	 new_pm_folder_path(:parent_id => @pm_folder)) 
 	add_model_link  = if(@pm_folder.root?) 
 		link_to_function '添加Page', 	 "alert('Root Folder不能添加Page， 请先新建一个Folder')"

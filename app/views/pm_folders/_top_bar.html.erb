@@ -34,7 +34,6 @@
 		<% if !@pm_lib.base?  %>
 					<%= link_to_popup "关闭项目", close_pm_lib_path(@pm_lib), {:class=>"icon icon-lock"} %>|
 		<% end %>
-		<%= link_to "脚本生成器", {:controller => "pm_scripts",  :action => "new", :pm_lib_id=>@pm_lib.id}, {:class=>"icon icon-stats",:popup => true} %>|
 	  <input type="text" value="" maxlength="2048" size="25" name="q"  style="margin-left:20px;">
 	  <input type="hidden" value="en" name="hl">
 
