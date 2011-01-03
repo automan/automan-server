@@ -2,11 +2,8 @@
 CVS
 .svn
 /config/database.yml
-/config/initializers/session_store.rb
 /db/*.db
 /db/*.sqlite3
-/index
-/db/schema.rb
 /log/*
 /public/images/upload
 /tmp/*
@@ -14,7 +11,6 @@ CVS
 /tmp/sessions/*
 /tmp/sockets/*
 /tmp/test/*
-/vendor/rails
 *~
 *.swp
 .cvsignore
