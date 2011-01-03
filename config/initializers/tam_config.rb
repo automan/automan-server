@@ -1,1 +1,1 @@
-ActiveRecord::Base.default_url_options = {:host => "localhost", :port=>"3000"}    
+ActiveRecord::Base.default_url_options = {:host => "localhost", :port=>"3000"}

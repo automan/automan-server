@@ -131,8 +131,25 @@ class CreateAllTables < ActiveRecord::Migration
      end
 
      add_index "users", ["login"], :name => "login", :unique => true
+     create_init_data
+  end
+  
+  def self.create_init_data
+    now = Time.now.to_s(:db)
+    ActiveRecord::Base.connection.execute("INSERT INTO `pm_libs` (`id`,`name`,`title`,`owner_id`,`project_id`,`created_at`,`updated_at`) VALUES (15, 'Base', '基线库', NULL, NULL, '#{now}', '#{now}');")
+    PmLib.first.send :after_create
+    User.create!(:login=>"admin",:nickname => "管理员", :email => "come2u@gmail.com")
   end
 
   def self.down
+    drop_table :users
+    drop_table :user_favs
+    drop_table :pm_versions
+    drop_table :pm_models
+    drop_table :pm_libs
+    drop_table :pm_links
+    drop_table :pm_folders
+    drop_table :pm_elements
+    drop_table :ownerables
   end
 end
