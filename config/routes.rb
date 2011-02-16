@@ -1,6 +1,13 @@
 ActionController::Routing::Routes.draw do |map|
   map.home "",  :controller => :pm_libs 
   map.connect "api/pm_models/:id.:format", :controller => :pm_models, :action=>:show
+  map.namespace :api do|api|
+		api.resources :pm_libs
+		api.resources :pm_models
+		api.resources :pm_elements
+		api.resources :dm_sqls
+	end	
+	
 	map.resources :pm_libs, :collection	=> ["simple_list","monkey_api"], :member=>["close","fav_folder"] do |lib|
     lib.resources :pm_folders do |folder|
     	folder.resources :pm_models
