@@ -23,6 +23,7 @@ ExtensionsProject.implement(Array, :select!) do
 end
 
 
+
 #
 # * Array#only
 #
@@ -41,6 +42,19 @@ ExtensionsProject.implement(Array, :only) do
         raise IndexError, "Array#only called on non-single-element array"
       end
       first
+    end
+  end
+end
+
+#
+# * Array#each_slice!
+#
+ExtensionsProject.implement(Array, :each_slice!) do
+  class Array
+    def each_slice!(size)
+      result = []
+      each_slice(size){|a|result << a}
+      return result
     end
   end
 end

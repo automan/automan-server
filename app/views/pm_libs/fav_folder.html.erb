@@ -20,7 +20,7 @@
 %>
 
 <table class="tagCol" style="width:600px;">
-	<% apps.each_slice(slice_size).each do|e| %>
+	<% apps.each_slice!(slice_size).each do|e| %>
 		<% e.fill(nil,e.length..(slice_size-1)) %>
 	<tr>
 		<% e.each do|f| %>
