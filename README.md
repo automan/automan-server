@@ -1,6 +1,11 @@
 ## About me ##
 
-automan is a .....,  automan-server is a....
+AutoMan is a test automation solution developed by TaoBao UI Automation Team.
+AutoMan includes test framework in client side and PageModel web service in
+server side.
+Automan-server is a http service build on rails to help user setup the page 
+model. After page model ready, client side will download the page model from 
+server side, then load and use them in test scripts.
 
 ## About demo site ##
 Our [demo site](http://automan.heroku.com)
@@ -33,7 +38,6 @@ All finished, have fun!
 
 #### How to Run with automan-client ####
 
-	TODO
+	update config/automan_config.rb in client machine
 
-TODO
-TODO
+config.tam_host           = "use your server here"
