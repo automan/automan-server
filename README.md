@@ -38,6 +38,6 @@ All finished, have fun!
 
 #### How to Run with automan-client ####
 
-	update config/automan_config.rb in client machine
+update config/automan_config.rb in client machine
 
-config.tam_host           = "use your server here"
+	config.tam_host           = "you server host or ip address"
