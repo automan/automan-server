@@ -50,7 +50,7 @@ class PmModel < ActiveRecord::Base
    def leve_1_locked?(pm_lib=self.pm_lib)
     return nil if self.not_imported
     if  pm_lib.base?
-      if pm_links.not_merged.count>0
+      if pm_links.not_merged.length>0
         "已被锁定（项目中被使用到了）,不能删除／更名"
       end
     else

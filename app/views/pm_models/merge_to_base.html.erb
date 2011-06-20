@@ -10,13 +10,13 @@
 	
 
 <% form_tag '',{:method=>"post"}  do %>	
-<center>
+<div style="text-align: center">
 	<% if @diff.same? %>
 		<%= hidden_field_tag "same", true %>
 		<%= merge_tag_html %>
 	<% else %>
-		<button go="left">使用左边的版本</button>
-		<button go="right">使用右边的版本</button>
+		<button type="button" style="float:left;">使用左边的版本</button>
+		<button type="button" style="float:right;">使用右边的版本</button>
 	
 		<p></p>
 	
@@ -67,5 +67,5 @@
 		<%= stylesheet_link_tag "scm" %>
 	<% end %>
 	
-	</center>
+	</div>
 <% end %>

@@ -40,7 +40,7 @@ module ApplicationHelper
 
   def html_title(*args)     
     if args.empty? && @html_title.nil?
-      ""
+      "AutoMan Flatform"
     else
       @html_title ||= []
       @html_title += args

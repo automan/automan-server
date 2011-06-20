@@ -3,13 +3,13 @@
 <% end %>
 <% if local_assigns[:f]%>
 	<%= f.error_messages %>   
-	<p>名称: <%= f.text_field :name %> <br> 比如: LoginPage,  SubmitAuctionPage, AuctionDetailPage </p>
+	<p>名称: <%= f.text_field :name %> <br /> 比如: LoginPage,  SubmitAuctionPage, AuctionDetailPage </p>
 	<p>说明: <%= f.text_field :title %> </p>
 	<% unless @pm_model.win32? %>
 		<p>URL : <%= f.text_field :url %> 以http:// 或者https 开头  </p>
 	<% end %>
 <% else %>
-	<p>名称: <%= text_field_tag "pm_model[name]" %> <br> 比如: LoginPage,  SubmitAuctionPage, AuctionDetailPage </p>
+	<p>名称: <%= text_field_tag "pm_model[name]" %> <br /> 比如: LoginPage,  SubmitAuctionPage, AuctionDetailPage </p>
 	<p>说明: <%= text_field_tag "pm_model[title]" %> </p>
 	<% unless @pm_model.win32? %>
 		<p>URL : <%= text_field_tag "pm_model[url]" %> 以http:// 或者https 开头  </p>

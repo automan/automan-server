@@ -6,8 +6,9 @@
  })
 </script> 
 <table id="topbar" cellspacing="0" cellpadding="0" border="0" width="100%" >
-  <tbody> 
-  <td width="4"></td>
+  <tbody>
+  <tr>
+  <td style="width:4px;"></td>
   <td>
 	
   <span class="fontsize3">
@@ -24,7 +25,7 @@
 			<%= @pm_folder.name %>
 			
 		  <a href="<%= bread_cubs.last ? pm_folder_path(bread_cubs.last) : pm_lib_path(@pm_lib) %>">
-		  <img height="12" border="0" width="11" vspace="0" alt="clear" src="/images/dir_x.gif">
+		  <img height="12" border="0" width="11" vspace="0" alt="clear" src="/images/dir_x.gif" />
 		  </a>
 			<% end %>
 	
@@ -34,10 +35,10 @@
 		<% if !@pm_lib.base?  %>
 					<%= link_to_popup "关闭项目", close_pm_lib_path(@pm_lib), {:class=>"icon icon-lock"} %>|
 		<% end %>
-	  <input type="text" value="" maxlength="2048" size="25" name="q"  style="margin-left:20px;">
-	  <input type="hidden" value="en" name="hl">
+	  <input type="text" value="" maxlength="2048" size="25" name="q"  style="margin-left:20px;" />
+	  <input type="hidden" value="en" name="hl" />
 
-  <input type="submit" id="search" value="搜索" name="qt_d" onclick="alert('紧张开发中');return !1">&nbsp;
+  <input type="submit" id="search" value="搜索" name="qt_d" onclick="alert('紧张开发中');return !1" />&nbsp;
   </form>
   </td>
   <td></td>

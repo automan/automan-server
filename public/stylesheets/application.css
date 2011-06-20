@@ -22,12 +22,12 @@ a.popup {
 	margin-left:18px;
 }
 .icon.root{
-	background:url("/pm/icons/page-root.png") no-repeat scroll 0 0 transparent;	
+	background:url("/images/icons/page-root.png") no-repeat scroll 0 0 transparent;
 }
 
 
 .icon.sub-model{
-	background:url("/pm/icons/folder-open.gif") no-repeat scroll 0 0 transparent;	
+	background:url("/images/icons/folder-open.gif") no-repeat scroll 0 0 transparent;
 }
 
 
@@ -41,40 +41,40 @@ vertical-align: middle;
 .icon-help { background-image: url(/images/automan/help.png); }
 
 .icon.lnk{
-	background:url("/pm/icons/link.gif") no-repeat scroll 0 0 transparent;	
+	background:url("/images/icons/link.gif") no-repeat scroll 0 0 transparent;
 }
 
 .icon.txt{
-	background:url("/pm/icons/textfield.png") no-repeat scroll 0 0 transparent;	
+	background:url("/images/icons/textfield.png") no-repeat scroll 0 0 transparent;
 }
 
 .icon.rad{
-	background:url("/pm/icons/radio.png") no-repeat scroll 0 0 transparent;	
+	background:url("/images/icons/radio.png") no-repeat scroll 0 0 transparent;
 }
 
 .icon.select{
-	background:url("/pm/icons/select.gif") no-repeat scroll 0 0 transparent;	
+	background:url("/images/icons/select.gif") no-repeat scroll 0 0 transparent;
 }
 
 .icon.lst{
-	background:url("/pm/icons/select.gif") no-repeat scroll 0 0 transparent;	
+	background:url("/images/icons/select.gif") no-repeat scroll 0 0 transparent;
 }
 
 .icon.btn{
-	background:url("/pm/icons/tick-button.png") no-repeat scroll 0 0 transparent;	
+	background:url("/images/icons/tick-button.png") no-repeat scroll 0 0 transparent;
 }
 
 .icon.default{
-	background:url("/pm/icons/default.png") no-repeat scroll 0 0 transparent;	
+	background:url("/images/icons/default.png") no-repeat scroll 0 0 transparent;
 }
 
 
 .icon.chk{
-	background:url("/pm/icons/checkbox.gif") no-repeat scroll 0 0 transparent;	
+	background:url("/images/icons/checkbox.gif") no-repeat scroll 0 0 transparent;
 }
 
 .icon.unknown{
-	background:url("/pm/icons/unknown.gif") no-repeat scroll 0 0 transparent;	
+	background:url("/images/icons/unknown.gif") no-repeat scroll 0 0 transparent;
 }
 
 

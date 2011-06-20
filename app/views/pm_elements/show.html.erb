@@ -27,10 +27,10 @@
     <% unless request.xhr? %>
 	    <h1>正在加载，请稍等。。。</h1>
 		<%else%>
-			<center><h1>请点击左侧</h1></center>
+	            <h1 style="text-align:center">请点击左侧</h1>
     <%end%>
 </div>                                          
-<div style="width:17 float: left;height: 620px;width: 17%;margin: 0;min-height: 600px;padding: 0;position: relative;border-right:1px solid #7799DD;">
+<div style="width:17%; float: left;height: 620px;width: 17%;margin: 0;min-height: 600px;padding: 0;position: relative;border-right:1px solid #7799DD;">
 	<form id="view-mode" action="" method="get">
 	英文<%= radio_button_tag("tree_view_mode","en", cookies[:tree_view_mode] == "en") %>&nbsp&nbsp&nbsp
 	中文<%= radio_button_tag("tree_view_mode","zh", cookies[:tree_view_mode] == "zh") %>	 

@@ -3,7 +3,7 @@
 		<%= button_to "删除此目录", @pm_folder, :confirm => '您确定要删除?', :method => :delete %>
 	<% else %>
 		<div class="flash notice">
-			项目中的<%= @pm_links.size %>个page关联到此目录，删除这些page后，才能继续此操作！<br>
+			项目中的<%= @pm_links.size %>个page关联到此目录，删除这些page后，才能继续此操作！<br />
 		</div>
 		<% if @pm_links.size>10 %>
 			<strong>这里只列出前10个</strong>

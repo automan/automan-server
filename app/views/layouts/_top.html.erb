@@ -41,18 +41,18 @@
   </script>
 
   <% if local_assigns.has_key? :popup %>
-    <div id="wrapper" class="popup">
+    <div id="wrapper" class="popup"></div>
     <% else %>
-      <div id="wrapper">
+      <div id="wrapper"></div>
       <% end %>
       <%= tag('div', {:id => 'main', :class => (has_content?(:sidebar) ? '' : 'nosidebar')}, true) %>
       <% if !request.xhr? %>
         <%- if params[:controller] != "pc_jobs" && params[:action] != "create_job" -%>
           <div id="top-menu">
             <ul>
-              <li><a href="javascript:history.back()"><img alt="后退" src="/images/page-prev.gif"></a></li>
-              <li><a href="javascript:history.forward()"><img alt="前进" src="/images/page-next.gif"></a></li>
-              <li><a href="javascript:location.reload()"><img alt="刷新" src="/images/refresh.gif"></a></li>
+              <li><a href="javascript:history.back()"><img alt="后退" src="/images/page-prev.gif" /></a></li>
+              <li><a href="javascript:history.forward()"><img alt="前进" src="/images/page-next.gif" /></a></li>
+              <li><a href="javascript:location.reload()"><img alt="刷新" src="/images/refresh.gif" /></a></li>
               <li style="padding-left: 230px;">
                 欢迎：<%= User.current.nickname %>
               </li>
@@ -60,3 +60,5 @@
           </div>
         <%- end -%>
       <% end %>
+
+</html>

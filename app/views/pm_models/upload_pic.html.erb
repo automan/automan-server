@@ -1,5 +1,5 @@
 <% image_url = @pm_model.image.url %>
-<% form_for(@pm_model, :url => {:action=>"upload_pic"},  :html => { :multipart => true }) do |f| %>
+<% form_for(image_url, :url => {:action=>"upload_pic"},  :html => { :multipart => true }) do |f| %>
 	<p> <%= f.file_field :image %> </p>
 	<p>
 	 <%= submit_tag '上传' %>	 

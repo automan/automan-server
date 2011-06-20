@@ -26,7 +26,7 @@
 		<h2 style="padding-top: 10px;">我收藏的模块 · · · · · ·		
 		<%= link_to_popup "设置", fav_folder_pm_lib_path(baselib) , :style=>"float:right;" %></h2>
 		<p>
-			[设置]后， 点击<a style="padding-left: 10px;" href="javascript:location.reload()"><img alt="刷新" src="/images/refresh.gif"></a>才会出现在这里
+			[设置]后， 点击<a style="padding-left: 10px;" href="javascript:location.reload()"><img alt="刷新" src="/images/refresh.gif" /></a>才会出现在这里
 		</p>
 		
 		<table class="tagCol">
@@ -59,7 +59,7 @@
 <% end  %>
 
 <% content_for :right_content do %>
-		<h1>我的对象库</h2>
+		<h1>我的对象库</h1>
 			<div class="clearfix">
 				
    	  <%= link_to_popup "<span>查看全部</span>", {:action => "simple_list"},{:class=>"colbutt ll"}  %>
@@ -72,7 +72,7 @@
 			<ul class="mbt">
 		    	<% pager.last.each do|e|  %>
 		    		<li class="mbtrmini">
-		    			<%= link_to "#{e.name}(#{e.title})", e%><br>
+		    			<%= link_to "#{e.name}(#{e.title})", e%><br />
 		    			<span style="padding-left:18px;font-size:11px;">
 		    			创建时间：<%= format_date e.created_at %>
 		    			更新时间：<%= format_date e.updated_at %></span>
