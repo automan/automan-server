@@ -40,4 +40,4 @@ All finished, have fun!
 
 update config/automan_config.rb in client machine
 
-	config.tam_host           = "you server host or ip address"
+	config.tam_host           = "you server host or ip address."
